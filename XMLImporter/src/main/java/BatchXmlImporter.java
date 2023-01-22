@@ -16,12 +16,13 @@ public class BatchXmlImporter {
         ArrayList<Company> companies = FileReader.companyParser(paths);
         for (Company company : companies) {
 
-            final int companyId = DatabaseHandler.insertCompany(company);
+            DatabaseHandler.saveCompany(company);
+            final int companyId = DatabaseHandler.companyId;
 
             for (Staff staff : company.staff) {
-                DatabaseHandler.insertStaff(staff, companyId);
+                DatabaseHandler.saveStaff(staff, companyId);
 
-                DatabaseHandler.insertSalary(staff);
+                DatabaseHandler.saveSalary(staff);
             }
         }
     }
